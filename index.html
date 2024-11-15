@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Paneli</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 500px;
+        }
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Aranacak Kelime:</h2>
+        <input type="text" id="searchQuery" class="input-field" placeholder="Aramak istediğiniz kelimeyi girin">
+        <button class="search-button" onclick="sendSearchQuery()">Ara</button>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        function sendSearchQuery() {
+            const query = document.getElementById("searchQuery").value;
+            if (query) {
+                ipcRenderer.send('search-query', query);
+            }
+        }
+    </script>
+</body>
+</html>
